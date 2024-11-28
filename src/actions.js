@@ -8342,16 +8342,7 @@ function sentience(){
             traitlist: global.custom.race0.traits
         });
 
-        let neg_traits = 0;
-        for (let i=0; i<global.custom.race0.traits.length; i++){
-            if (traits[global.custom.race0.traits[i]].val < 0){
-                neg_traits++;
-            }
-        }
-        if (neg_traits > 10 && convertVersion(global['version']) > 104000){
-            let suffering = convertVersion(global['version']) > 104001 ? 2 : 1;
-            global.race['overtapped'] = (neg_traits - 10) * suffering;
-        }
+       
     }
 
     if (global.race.unfathomable){
