@@ -8580,6 +8580,24 @@ function sentience(){
        
     }
 
+    if (global.race.species === 'hybrid' && global.custom.hasOwnProperty('race1')){
+        global.race['untapped'] = calcGenomeScore({
+            name: global.custom.race1.name,
+            desc: global.custom.race1.desc,
+            entity: global.custom.race1.entity,
+            home: global.custom.race1.home,
+            red: global.custom.race1.red,
+            hell: global.custom.race1.hell,
+            gas: global.custom.race1.gas,
+            gas_moon: global.custom.race1.gas_moon,
+            dwarf: global.custom.race1.dwarf,
+            genes: 0,
+            genus: global.custom.race1.genus,
+            hybrid: global.custom.race1.hybrid,
+            traitlist: global.custom.race1.traits
+        });
+    }
+
     if (global.race.unfathomable){
         global.city['surfaceDwellers'] = [];
         while (global.city.surfaceDwellers.length < traits.unfathomable.vars()[0]){
