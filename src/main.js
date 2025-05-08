@@ -3879,6 +3879,7 @@ function fastLoop(){
             let missing = Math.min(global.civic.homeless, global.resource[global.race.species].max - global.resource[global.race.species].amount);
             global.civic.homeless -= missing;
             global.resource[global.race.species].amount += missing;
+            global.civic[global.civic.d_job].workers++;
         }
         else if (((fed && global['resource']['Food'].amount > 0) || global.race['fasting']) && global['resource'][global.race.species].max > global['resource'][global.race.species].amount){
             if (global.race['artifical'] || (global.race['spongy'] && global.city.calendar.weather === 0)){
@@ -3946,6 +3947,7 @@ function fastLoop(){
                 upperBound *= (3 - (2 ** time_multiplier));
                 if(Math.rand(0, upperBound) <= lowerBound){
                     global['resource'][global.race.species].amount++;
+                    global.civic[global.civic.d_job].workers++;
                 }
             }
         }
@@ -11032,7 +11034,7 @@ function midLoop(){
                 global.r_queue.queue[i].qa = global.settings.qAny_res ? true : false;
             }
             if (idx >= 0 && c_action && !global.r_queue.pause){
-                if (c_action.action()){
+                if (c_action.action({isQueue: true})){
                     messageQueue(loc('research_success',[global.r_queue.queue[idx].label]),'success',false,['queue','research_queue']);
                     gainTech(global.r_queue.queue[idx].type);
                     if (c_action['post']) {
@@ -11237,7 +11239,7 @@ function midLoop(){
                 let struct = global.queue.queue[idx];
                 let report_in = c_action['queue_complete'] ? c_action.queue_complete() : 1;
                 for (let i=0; i<attempts; i++){
-                    if (c_action.action() !== false){
+                    if (c_action.action({isQueue: true}) !== false){
                         triggerd = true;
                         if (report_in - i <= 1){
                             messageQueue(loc('build_success',[global.queue.queue[idx].label]),'success',false,['queue','building_queue']);
